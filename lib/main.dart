@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crochet_all_day/my_drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -113,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      drawer: const MyDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
