@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crochet_all_day/my_drawer.dart';
+import 'package:flutter_crochet_all_day/stitch_counter.dart';
 //import 'stitch_counter.dart';
 
 void main() {
@@ -39,9 +40,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-// Enum for pages
-enum PageID { home, stitchCounter }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -51,38 +49,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  PageID _selectedPage = PageID.home;
+   int _index = 0;
 
-  // Callback for drawer
-  void select(int index) {
-    setState(() {
-      _selectedPage = PageID.values[index];
-    });
-  }
+  void select(int i) => setState(() => _index = i);
 
-  // Returns the body widget based on selected page
-  Widget _getPage() {
-    switch (_selectedPage) {
-      case PageID.home:
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Home Page Content'),
-            ],
-          ),
-        );
-      case PageID.stitchCounter:
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Stitch Counter Page'),
-            ],
-          ),
-        );
-    }
-  }
+   final pages = [
+      Center(child: Text("Home Page")),
+      Center(child: Text("Patterns Page")),
+      StitchCounter()
+    ];
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       drawer: MyDrawer(onSelect: select),
-      body: _getPage(),
+      body: IndexedStack(index: _index, children: pages,), //, pages
     );
   }
 }

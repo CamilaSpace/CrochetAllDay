@@ -7,11 +7,45 @@ class StitchCounter extends StatefulWidget {
 }
 
 class _StitchCounterState extends State<StitchCounter> {
-@override
+  int stitches = 0;
+  int rows = 0;
+
+
+  // void increase(){
+
+  // }
+
+  void increaseStitch(){
+    setState(() {
+      stitches++;
+    });
+  }
+
+  void decreaseStitch(){
+    setState(() {
+      stitches--;
+    });
+  }
+
+  void decreaseRow(){
+    setState(() {
+      rows--;
+    });
+  }
+
+  void increaseRow(){
+    setState(() {
+      rows++;
+    });
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
-   return Scaffold(
-      appBar: AppBar(title: Text('Stitch Counter')),
-      body: Center(child: Text('Counter here')),
+    return Center(
+      child: Text('Counter here'),
     );
+    
   }
 }

@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+//import 'main.dart';
 //enum PageID {stitchCounter}
 
-class MyDrawer extends StatefulWidget {
-  final void Function(int) onSelect; // pass the callback in
+enum PageID { home, patterns, stitchCounter }
 
-  const MyDrawer({super.key, required this.onSelect});
-
-  @override
-  State<MyDrawer> createState() => _MyDrawerPageState();
-}
-
-class _MyDrawerPageState extends State<MyDrawer> {
-bool _isDarkMode = false;
-@override
-  Widget build(BuildContext context ) {
-     void Function(int) onSelect;
-    return Drawer(
+Widget appDrawer(
+  BuildContext context,
+  void Function(int) onSelect,
+  bool isDarkMode,
+  Function(bool) onThemeToggle,
+) {
+   return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
       // space to fit everything.
@@ -32,39 +26,61 @@ bool _isDarkMode = false;
             title: Text('Home'),
             onTap: () {
               Navigator.pop(context);
-              widget.onSelect(PageID.home.index);
+              onSelect(PageID.home.index);
             },
           ),
           ListTile(
             title: Text('Patterns'),
             onTap: () {
-              // Update the state of the app.
-              // ...
+             Navigator.pop(context);
+              onSelect(PageID.patterns.index);
             },
           ),
           ListTile(
             title: Text('Stitch Counter'),
             onTap: () {
               Navigator.pop(context);
-              widget.onSelect(PageID.stitchCounter.index);
+              onSelect(PageID.stitchCounter.index);
             },
           ),
           ListTile(
             title: Text('Light/Dark Mode'),
-            trailing: Switch(value: _isDarkMode, 
-            onChanged: (bool newValue) {
-                setState(() {
-                  _isDarkMode = newValue; // updates the state
-                });
-            },
+            trailing: Switch(value: isDarkMode, 
+            onChanged: onThemeToggle,
             ), //value: , onChanged: onChanged
             onTap: () {
-              // Update the state of the app.
-              // ...
+              // Optionally toggle when tapping the whole tile:
+              onThemeToggle(!isDarkMode);
             },
           ),
         ],
       ),
+    );
+}
+
+class MyDrawer extends StatefulWidget {
+  final void Function(int) onSelect;
+
+  const MyDrawer({super.key, required this.onSelect});
+
+  @override
+  State<MyDrawer> createState() => _MyDrawerPageState();
+}
+
+class _MyDrawerPageState extends State<MyDrawer> {
+  bool isDarkMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return appDrawer(
+      context,
+      widget.onSelect,
+      isDarkMode,
+      (value) {
+        setState(() {
+          isDarkMode = value;
+        });
+      },
     );
   }
 }
