@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'theme.dart';
 //import 'main.dart';
 //enum PageID {stitchCounter}
 
@@ -18,8 +19,8 @@ Widget appDrawer(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
+          DrawerHeader(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
             child: Text('Crochet All Day'),
           ),
           ListTile(
@@ -43,16 +44,16 @@ Widget appDrawer(
               onSelect(PageID.stitchCounter.index);
             },
           ),
-          ListTile(
-            title: Text('Light/Dark Mode'),
-            trailing: Switch(value: isDarkMode, 
-            onChanged: onThemeToggle,
-            ), //value: , onChanged: onChanged
-            onTap: () {
-              // Optionally toggle when tapping the whole tile:
-              onThemeToggle(!isDarkMode);
-            },
-          ),
+          // ListTile(
+          //   title: Text('Light/Dark Mode'),
+          //   trailing: Switch(value: isDarkMode, 
+          //   onChanged: onThemeToggle,
+          //   ), //value: , onChanged: onChanged
+          //   onTap: () {
+          //     // Optionally toggle when tapping the whole tile:
+          //     onThemeToggle(!isDarkMode);
+          //   },
+          // ),
         ],
       ),
     );

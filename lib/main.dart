@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crochet_all_day/my_drawer.dart';
 import 'package:flutter_crochet_all_day/stitch_counter.dart';
+import 'package:flutter_crochet_all_day/theme.dart';
+import 'patterns.dart';
 //import 'stitch_counter.dart';
 
 void main() {
@@ -16,7 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Crochet All Day',
-      theme: ThemeData(
+      home: const MyHomePage(title: 'Crochet All Day'),
+     
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: ThemeMode.light,
+      
+      
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
@@ -32,10 +40,8 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Crochet All Day'),
-    );
+        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      );
   }
 }
 
@@ -49,22 +55,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
    int _index = 0;
 
   void select(int i) => setState(() => _index = i);
 
    final pages = [
       Center(child: Text("Home Page")),
-      Center(child: Text("Patterns Page")),
-      StitchCounter()
+      PatternsPage(),
+      //Center(child: Text("Patterns Page")),
+      StitchCounter(),
     ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       drawer: MyDrawer(onSelect: select),
       body: IndexedStack(index: _index, children: pages,), //, pages
