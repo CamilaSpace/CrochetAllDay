@@ -98,19 +98,6 @@ class _StitchCounterState extends State<StitchCounter> {
             ),
           ],
         ),
-        // Row(
-        //   children: [
-        //     ElevatedButton(
-        //       onPressed: (){
-        //         setState(() {
-        //           stitches = 0;
-        //           rows = 0;
-        //         });
-        //       },
-        //       child: Text('Reset'),
-        //     ),
-        //   ],
-        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -3,6 +3,7 @@ import 'package:flutter_crochet_all_day/my_drawer.dart';
 import 'package:flutter_crochet_all_day/stitch_counter.dart';
 import 'package:flutter_crochet_all_day/theme.dart';
 import 'patterns.dart';
+import 'home_page.dart';
 //import 'stitch_counter.dart';
 
 void main() {
@@ -23,24 +24,7 @@ class MyApp extends StatelessWidget {
       theme: lightMode,
       darkTheme: darkMode,
       themeMode: ThemeMode.light,
-      
-      
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
       );
   }
 }
@@ -68,9 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void select(int i) => setState(() => _index = i);
 
    final pages = [
-      Center(child: Text("Home Page")),
+      HomePage(),
       PatternsPage(),
-      //Center(child: Text("Patterns Page")),
       StitchCounter(),
     ];
 
@@ -84,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: MyDrawer(onSelect: select),
       body: IndexedStack(index: _index, children: pages,), //, pages
+      
     );
   }
 }

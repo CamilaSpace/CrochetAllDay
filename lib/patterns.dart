@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
+
 
 class PatternsPage extends StatefulWidget {
   const PatternsPage({super.key});
@@ -7,27 +9,29 @@ class PatternsPage extends StatefulWidget {
   State<PatternsPage> createState() => _PatternsPageState();
 }
 
-class Pattern {
+class Patterns {
   final String name;
   final IconData icon;
-  int count;
 
-  Pattern({required this.name, required this.icon, this.count = 0});
+  Patterns({required this.name, required this.icon});
 }
 
 class _PatternsPageState extends State<PatternsPage> {
-final List<Pattern> patterns = [
-    Pattern(name: 'Circle', icon: Icons.circle),
-    Pattern(name: 'Square', icon: Icons.square),
-    Pattern(name: 'Granny Square', icon: Icons.crop_square),
-    Pattern(name: 'Triangle', icon: Icons.change_history),
+  final List<Patterns> patterns = [
+    Patterns(name: 'Circle', icon: Icons.circle),
+    Patterns(name: 'Square', icon: Icons.square),
+    Patterns(name: 'Granny Square', icon: Icons.crop_square),
+    Patterns(name: 'Triangle', icon: Icons.change_history),
   ];
-void _increment(int index) => setState(() => patterns[index].count++);
-  void _decrement(int index) => setState(() {
-    if (patterns[index].count > 0) {
-      patterns[index].count--;
-    }
-  });
+
+  void startPattern(Patterns pattern) {
+    wipPatterns.add(WIP(pattern));
+  print("Added ${pattern.name} to WIP list");
+  // You can optionally show a SnackBar to confirm
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text("${pattern.name} added to WIP")),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -51,39 +55,22 @@ void _increment(int index) => setState(() => patterns[index].count++);
                         Icon(
                           patterns[i].icon,
                           size: 36,
-                          color: Colors.green[700],
                         ),
                         const SizedBox(height: 6),
                         Text(
                           patterns[i].name,
-                          style: const TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16),
                         ),
+                         Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text('View Pattern'),
+                        ),
+                        ElevatedButton(onPressed: () => startPattern(patterns[i]), child: Text('Start Pattern')),
+                      ],
+        ),  
                       ],
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     IconButton(
-                    //       icon: const Icon(Icons.remove_circle_outline),
-                    //       onPressed: () => _decrement(i),
-                    //       padding: EdgeInsets.zero,
-                    //       constraints: const BoxConstraints(),
-                    //     ),
-                    //     Padding(
-                    //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    //       child: Text(
-                    //         '${patterns[i].count}',
-                    //         style: const TextStyle(fontSize: 16),
-                    //       ),
-                    //     ),
-                    //     IconButton(
-                    //       icon: const Icon(Icons.add_circle_outline),
-                    //       onPressed: () => _increment(i),
-                    //       padding: EdgeInsets.zero,
-                    //       constraints: const BoxConstraints(),
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
               ),
